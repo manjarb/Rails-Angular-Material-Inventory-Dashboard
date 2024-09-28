@@ -1,0 +1,63 @@
+# Ignore bundler config.
+.bundle/
+
+# Ignore all environment files (except templates).
+.env*
+!*.env*.erb
+
+# Ignore all logfiles and tempfiles.
+log/*
+tmp/*
+!log/.keep
+!tmp/.keep
+
+# Ignore pidfiles, but keep the directory.
+tmp/pids/*
+!tmp/pids/
+!tmp/pids/.keep
+
+# Ignore storage (uploaded files in development).
+storage/*
+!storage/.keep
+tmp/storage/*
+!tmp/storage/
+!tmp/storage/.keep
+
+# Ignore master key for decrypting credentials and more.
+config/master.key
+
+# Ignore public assets that are precompiled.
+public/assets
+public/packs
+
+# Ignore npm and yarn dependencies (if any JS or frontend assets).
+node_modules/
+yarn-error.log
+
+# Ignore Docker files (if you're using Docker).
+docker-compose.yml
+Dockerfile
+
+# Ignore IDE or editor configuration files.
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Ignore database schema dumps and SQLite files.
+db/*.sqlite3
+db/*.sqlite3-journal
+db/schema.rb
+db/development.sqlite3
+db/test.sqlite3
+
+# Ignore coverage results (e.g., from SimpleCov).
+coverage/
+
+# Ignore any byebug history files.
+.byebug_history
+
+# Ignore other system or editor-specific files.
+*.swp
+*.swo
+.DS_Store

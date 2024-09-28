@@ -1,0 +1,43 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  product_number: MyString
+  material: MyString
+  form: MyString
+  choice: MyString
+  grade: MyString
+  finish: MyString
+  surface: MyString
+  quantity: 1
+  weight: 9.99
+  length: 9.99
+  width: 9.99
+  height: 9.99
+  thickness: 9.99
+  outer_diameter: 9.99
+  wall_thickness: 9.99
+  web_thickness: 9.99
+  flange_thickness: 9.99
+  certificates: MyString
+  location: MyString
+
+two:
+  product_number: MyString
+  material: MyString
+  form: MyString
+  choice: MyString
+  grade: MyString
+  finish: MyString
+  surface: MyString
+  quantity: 1
+  weight: 9.99
+  length: 9.99
+  width: 9.99
+  height: 9.99
+  thickness: 9.99
+  outer_diameter: 9.99
+  wall_thickness: 9.99
+  web_thickness: 9.99
+  flange_thickness: 9.99
+  certificates: MyString
+  location: MyString
