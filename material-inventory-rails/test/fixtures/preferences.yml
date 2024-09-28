@@ -1,0 +1,21 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  material: MyString
+  form: MyString
+  grade: MyString
+  choice: MyString
+  width_min: 9.99
+  width_max: 9.99
+  thickness_min: 9.99
+  thickness_max: 9.99
+
+two:
+  material: MyString
+  form: MyString
+  grade: MyString
+  choice: MyString
+  width_min: 9.99
+  width_max: 9.99
+  thickness_min: 9.99
+  thickness_max: 9.99
