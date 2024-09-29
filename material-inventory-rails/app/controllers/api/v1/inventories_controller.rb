@@ -31,14 +31,22 @@ class Api::V1::InventoriesController < ApplicationController
     page = pagination[:page]
     limit = pagination[:limit]
 
+    # Define allowed columns and directions for sorting
+    allowed_sort_columns = %w[weight form_choice]
+    allowed_sort_directions = %w[asc desc]
+
+    sort_column = params[:sort_column].presence_in(allowed_sort_columns) || 'weight'
+    sort_direction = params[:sort_direction].presence_in(allowed_sort_directions) || 'desc'
+
     # Fetch paginated inventory items
-    inventories = InventoryItem.page(page).per(limit)
+    inventories = InventoryItem.order("#{sort_column} #{sort_direction}").page(page).per(limit)
 
     # Prepare response
     response = {
-      items: inventories.map(&:attributes),
+      items: inventories.map{ |item| InventoryService.serialize_inventory_item(item) },
       meta: PaginationUtils.pagination_meta(inventories, limit)
     }
+
     json_response(response)
   end
 end

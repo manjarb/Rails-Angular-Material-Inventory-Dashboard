@@ -37,9 +37,16 @@ module CsvUtils
   def self.normalize_headers(row, header_mapping)
     row.to_hash.transform_keys do |key|
       header_mapping[key.strip] || key.strip
-    end.transform_values do |value|
+    end.transform_values.with_index do |value, index|
       value = value.strip if value.is_a?(String)
-      numeric_field?(value) ? convert_to_number(value) : value
+
+      # Bypass numeric conversion for product_number
+      header_key = row.headers[index].strip
+      if header_key == 'Product Number' || header_mapping[header_key] == 'product_number'
+        value
+      else
+        numeric_field?(value) ? convert_to_number(value) : value
+      end
     end
   end
 

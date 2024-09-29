@@ -17,6 +17,7 @@ class InventoryService
       CSV.foreach(file.path, headers: true) do |row|
         # Normalize headers and convert numeric fields
         normalized_row = CsvUtils.normalize_inventory_headers(row)
+        normalized_row['form_choice'] = "#{normalized_row['form']} #{normalized_row['choice']}".strip
         inventory_items << normalized_row
 
         if inventory_items.size >= BATCH_SIZE
@@ -29,5 +30,28 @@ class InventoryService
       # Upsert remaining records if any are left after the loop
       upsert_inventory_items(inventory_items) if inventory_items.any?
     end
+  end
+
+  def self.serialize_inventory_item(item)
+    {
+      product_number: item.product_number,
+      form: item.form,
+      choice: item.choice,
+      form_choice: item.form_choice,
+      grade: item.grade,
+      surface: item.surface,
+      finish: item.finish,
+      length: item.length,
+      width: item.width,
+      height: item.height,
+      thickness: item.thickness,
+      outer_diameter: item.outer_diameter,
+      wall_thickness: item.wall_thickness,
+      web_thickness: item.web_thickness,
+      flange_thickness: item.flange_thickness,
+      quantity: item.quantity,
+      weight: item.weight.to_f,
+      location: item.location
+    }
   end
 end

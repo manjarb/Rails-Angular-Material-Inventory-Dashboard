@@ -1,1 +1,12 @@
-<p>inventory-info works!</p>
+<div *ngIf="inventories.length">
+  <!-- Pass inventories data to the inventory table component -->
+  <app-inventory-table
+    [items]="inventories"
+    [total]="total"
+    [page]="page"
+    [pageSize]="pageSize"
+    [sortBy]="sortBy"
+    (handlePageChange)="onPageChange($event)"
+    (handleSortByChange)="onSortByChange($event)"
+  ></app-inventory-table>
+</div>

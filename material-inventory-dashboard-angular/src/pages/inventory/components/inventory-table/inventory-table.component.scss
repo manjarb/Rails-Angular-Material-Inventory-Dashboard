@@ -1,0 +1,39 @@
+.mat-mdc-table {
+  /* Background and border */
+  border-radius: 8px;
+  overflow: hidden; /* Ensure proper rounding of corners */
+
+  /* Padding and margin for the overall table */
+  padding: 8px;
+
+  /* Shadow for elevation */
+  box-shadow: 0px 4px 16px rgba(0, 0, 0, 0.1);
+}
+
+.mat-header-cell,
+.mat-cell {
+  /* Ensure text does not overflow */
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.mat-mdc-cell {
+  padding-top: 8px;
+  padding-bottom: 8px;
+}
+
+.bottom-paginator {
+  margin: 15px 0;
+}
+
+.table-header-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+
+  p {
+    margin: 0;
+  }
+}

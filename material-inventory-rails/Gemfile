@@ -41,4 +41,5 @@ group :development, :test do
 
   gem 'dotenv-rails'
   gem 'kaminari'
+  gem 'rack-cors'
 end
