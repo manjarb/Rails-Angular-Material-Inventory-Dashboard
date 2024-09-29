@@ -11,6 +11,7 @@ import {
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
 import {
   IInventoryItem,
+  IInventorySummary,
   InventorySortBy,
 } from '../../../../interfaces/inventory.interface';
 import { CommonModule } from '@angular/common';
@@ -38,6 +39,10 @@ export class InventoryTableComponent {
   page = input.required<number>();
   pageSize = input.required<number>();
   sortBy = input<string>(InventorySortBy.Weight);
+  summary = input<IInventorySummary>({
+    totalItems: 0,
+    totalVolume: '0',
+  });
   handlePageChange = output<number>();
   handleSortByChange = output<InventorySortBy>();
   sortByValue = InventorySortBy;

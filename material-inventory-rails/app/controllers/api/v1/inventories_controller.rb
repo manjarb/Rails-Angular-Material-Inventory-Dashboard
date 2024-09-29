@@ -49,4 +49,15 @@ class Api::V1::InventoriesController < ApplicationController
 
     json_response(response)
   end
+
+  # GET /api/v1/inventories/summary
+  def summary
+    total_line_items = InventoryItem.count
+    total_volume_tons = InventoryItem.sum(:weight)
+
+    json_response({
+      total_line_items: total_line_items,
+      total_volume_tons: total_volume_tons
+    })
+  end
 end

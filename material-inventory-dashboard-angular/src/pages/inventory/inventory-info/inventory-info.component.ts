@@ -2,6 +2,7 @@ import { Component, inject } from '@angular/core';
 import { InventoryTableComponent } from '../components/inventory-table/inventory-table.component';
 import {
   IInventoryItem,
+  IInventorySummary,
   InventorySortBy,
 } from '../../../interfaces/inventory.interface';
 import { InventoryService } from '../services/inventory.service';
@@ -16,6 +17,10 @@ import { CommonModule } from '@angular/common';
 })
 export class InventoryInfoComponent {
   inventories: IInventoryItem[] = [];
+  summary: IInventorySummary = {
+    totalItems: 0,
+    totalVolume: '0',
+  };
   sortBy = InventorySortBy.Weight;
   total = 0;
   page = 1;
@@ -25,6 +30,7 @@ export class InventoryInfoComponent {
 
   ngOnInit(): void {
     this.fetchInventories();
+    this.fetchSummary()
   }
 
   fetchInventories() {
@@ -34,6 +40,12 @@ export class InventoryInfoComponent {
         this.inventories = items;
         this.total = total_count;
       });
+  }
+
+  fetchSummary() {
+    this.inventoryService.getSummary().subscribe((summary) => {
+      this.summary = summary;
+    });
   }
 
   onPageChange(page: number) {

@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { IInventoryItem, IInventoryItemPaginationData, IInventoryItemPaginationResponse, InventorySortBy } from '../../../interfaces/inventory.interface';
+import { IInventoryItem, IInventoryItemPaginationData, IInventoryItemPaginationResponse, IInventorySummary, IInventorySummaryResponse, InventorySortBy } from '../../../interfaces/inventory.interface';
 import { IResponse } from '../../../interfaces/general.interface';
 
 @Injectable({
@@ -13,6 +13,17 @@ export class InventoryService {
   private apiUrl = `${environment.apiUrl}/api/v1/inventories`;
 
   constructor(private http: HttpClient) {}
+
+  getSummary(): Observable<IInventorySummary> {
+    return this.http
+      .get<IResponse<IInventorySummaryResponse>>(`${this.apiUrl}/summary`)
+      .pipe(
+        map((response) => ({
+          totalItems: response.data.total_line_items,
+          totalVolume: response.data.total_volume_tons
+        }))
+      );
+  }
 
   getInventories(page = 1, limit = 20, sortBy = InventorySortBy.Weight): Observable<IInventoryItemPaginationData> {
     let fullUrl = `${this.apiUrl}?page=${page}&limit=${limit}&sort_column=${sortBy}`;

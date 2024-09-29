@@ -4,6 +4,7 @@ Rails.application.routes.draw do
       resources :inventories do
         collection do
           post :upload
+          get :summary
         end
       end
 

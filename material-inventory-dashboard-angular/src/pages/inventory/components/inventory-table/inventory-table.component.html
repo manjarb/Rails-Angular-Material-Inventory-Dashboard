@@ -12,6 +12,14 @@
       </mat-button-toggle>
     </mat-button-toggle-group>
   </p>
+
+  <div>
+    <p>
+      Total Items: {{ summary().totalItems }}, Total Volume:
+      {{ summary().totalVolume }}
+    </p>
+  </div>
+
   <mat-paginator
     [length]="total()"
     [pageSize]="pageSize()"

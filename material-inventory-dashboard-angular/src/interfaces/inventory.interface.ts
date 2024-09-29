@@ -42,6 +42,15 @@ export interface IInventoryItemResponse {
   location: string;
 }
 
+export interface IInventorySummaryResponse {
+  total_line_items: number;
+  total_volume_tons: string;
+}
+
+export interface IInventorySummary {
+  totalItems: number;
+  totalVolume: string;
+}
 
 export interface IInventoryItemPaginationResponse
   extends IPaginationData<IInventoryItemResponse> {}
