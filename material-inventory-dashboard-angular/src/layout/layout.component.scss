@@ -1,0 +1,15 @@
+@import "../styles/colors.scss";
+
+.sidenav-container {
+  min-height: 100vh;
+}
+
+.sidenav {
+  width: 250px;
+  background-color: $sidebar-dark-bg;
+  border-radius: 0;
+}
+
+.content {
+  padding: 16px;
+}

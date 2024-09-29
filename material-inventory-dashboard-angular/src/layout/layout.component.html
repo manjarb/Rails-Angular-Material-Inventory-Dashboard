@@ -1,0 +1,14 @@
+<mat-sidenav-container class="sidenav-container">
+  <!-- Sidebar / Sidenav -->
+  <mat-sidenav mode="side" opened class="sidenav">
+    <app-sidebar></app-sidebar>
+    <!-- Use the Sidebar component here -->
+  </mat-sidenav>
+
+  <!-- Main content area -->
+  <mat-sidenav-content>
+    <div class="content">
+      <router-outlet></router-outlet>
+    </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>

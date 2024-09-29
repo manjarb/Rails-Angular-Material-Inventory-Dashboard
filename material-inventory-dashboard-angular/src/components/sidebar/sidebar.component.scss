@@ -1,0 +1,25 @@
+@import "../../styles/colors.scss";
+
+p {
+  margin: 0;
+  color: $white;
+}
+
+a:link,
+a:visited,
+a:hover,
+a:active {
+  border-radius: 0 !important;
+  p {
+    color: $white;
+  }
+}
+
+mat-icon {
+  color: $white !important;
+}
+
+mat-toolbar {
+  background-color: transparent;
+  color: $white;
+}
