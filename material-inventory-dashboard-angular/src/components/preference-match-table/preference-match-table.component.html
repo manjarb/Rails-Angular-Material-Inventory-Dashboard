@@ -1,0 +1,64 @@
+<div class="table-container">
+  <mat-paginator
+    [length]="total()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[]"
+    [hidePageSize]="true"
+    aria-label="Select page"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+
+  <table
+    mat-table
+    [dataSource]="dataSource"
+    class="mat-elevation-z8 mat-mdc-table"
+  >
+    <!-- Material Column -->
+    <ng-container matColumnDef="material">
+      <th mat-header-cell *matHeaderCellDef>Material</th>
+      <td mat-cell *matCellDef="let element">{{ element.material }}</td>
+    </ng-container>
+
+    <!-- Form Column -->
+    <ng-container matColumnDef="form">
+      <th mat-header-cell *matHeaderCellDef>Form</th>
+      <td mat-cell *matCellDef="let element">{{ element.form }}</td>
+    </ng-container>
+
+    <!-- Choice Column -->
+    <ng-container matColumnDef="choice">
+      <th mat-header-cell *matHeaderCellDef>Choice</th>
+      <td mat-cell *matCellDef="let element">{{ element.choice }}</td>
+    </ng-container>
+
+    <!-- Grade Column -->
+    <ng-container matColumnDef="grade">
+      <th mat-header-cell *matHeaderCellDef>Grade</th>
+      <td mat-cell *matCellDef="let element">{{ element.grade }}</td>
+    </ng-container>
+
+    <!-- Dimensions Column -->
+    <ng-container matColumnDef="dimensions">
+      <th mat-header-cell *matHeaderCellDef>Dimensions (mm)</th>
+      <td mat-cell *matCellDef="let element">
+        {{ formatDimensions(element) }}
+      </td>
+    </ng-container>
+
+    <!-- Header and Row Definitions -->
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+  </table>
+
+  <mat-paginator
+    class="bottom-paginator"
+    [length]="total()"
+    [pageSize]="pageSize()"
+    [pageSizeOptions]="[]"
+    [hidePageSize]="true"
+    aria-label="Select page"
+    (page)="onPageChange($event)"
+  >
+  </mat-paginator>
+</div>

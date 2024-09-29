@@ -68,8 +68,23 @@ export class InventoryService {
       quantity: Number(item.quantity) || 0, // Assuming quantity should be a number
       weight: Number(item.weight) || 0, // Weight as a number
       location: item.location || '',
-      material: item.material
+      material: item.material,
     };
+  }
+
+  formatDimensions(item: IInventoryItem): string {
+    const dimensions = [];
+    if (item.length != null) dimensions.push(`L=${item.length}`);
+    if (item.width != null) dimensions.push(`W=${item.width}`);
+    if (item.height != null) dimensions.push(`H=${item.height}`);
+    if (item.thickness != null) dimensions.push(`T=${item.thickness}`);
+    if (item.outerDiameter != null) dimensions.push(`OD=${item.outerDiameter}`);
+    if (item.wallThickness != null) dimensions.push(`Wt=${item.wallThickness}`);
+    if (item.webThickness != null) dimensions.push(`Tw=${item.webThickness}`);
+    if (item.flangeThickness != null)
+      dimensions.push(`Tf=${item.flangeThickness}`);
+
+    return dimensions.join(', ');
   }
 
   // Helper method to parse numeric values safely

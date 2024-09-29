@@ -1,1 +1,12 @@
-<app-preference-upload-form></app-preference-upload-form>
+<app-preference-upload-form
+  (handleSubmit)="onSubmit($event)"
+></app-preference-upload-form>
+<div *ngIf="inventories.length">
+  <app-preference-match-table
+    [total]="total"
+    [items]="inventories"
+    [page]="page"
+    [pageSize]="pageSize"
+    (handlePageChange)="onPageChange($event)"
+  ></app-preference-match-table>
+</div>

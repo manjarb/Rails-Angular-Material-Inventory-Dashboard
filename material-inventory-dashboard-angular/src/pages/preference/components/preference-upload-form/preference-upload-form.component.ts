@@ -1,5 +1,5 @@
 import { CommonModule } from '@angular/common';
-import { Component, inject } from '@angular/core';
+import { Component, inject, output } from '@angular/core';
 import { FormBuilder, FormGroup, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatFormFieldModule } from '@angular/material/form-field';
@@ -28,47 +28,25 @@ import { InventoryTableComponent } from '../../../../components/inventory-table/
 })
 export class PreferenceUploadFormComponent {
   private fb = inject(FormBuilder);
-  private preferenceService = inject(PreferenceService);
-
-  inventories: IInventoryItem[] = [];
-  total = 0;
-  page = 1;
-  pageSize = 20;
-  sortOptions: IButtonToggleOption<InventorySortBy>[] = [
-    { label: 'Weight', value: InventorySortBy.Weight },
-  ];
 
   uploadForm: FormGroup = this.fb.group({
     file: [null],
   });
-
-  fileToUpload: File | null = null;
-
-  onFileChange(event: Event): void {
-    const input = event.target as HTMLInputElement;
-    if (input.files && input.files.length > 0) {
-      this.fileToUpload = input.files[0];
-      this.fetchMatches();
-    }
-  }
-
-  fetchMatches() {
-    if (this.fileToUpload) {
-      this.preferenceService
-        .matchPreferences(this.fileToUpload, this.page)
-        .subscribe(({ items, meta: { total_count } }) => {
-          this.inventories = items;
-          this.total = total_count;
-        });
-    }
-  }
+  handleSubmit = output<File>();
 
   onSubmit(): void {
-    this.fetchMatches();
+    const fileControl = this.uploadForm.get('file')?.value as File | null;
+    console.log(fileControl, ' :fileControl');
+    if (fileControl) {
+      this.handleSubmit.emit(fileControl);
+    }
   }
 
-  onPageChange(page: number) {
-    this.page = page;
-    this.fetchMatches();
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      const file = input.files[0];
+      this.uploadForm.patchValue({ file }); // Update the form control value
+    }
   }
 }
