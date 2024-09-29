@@ -14,3 +14,8 @@ export interface IPaginationData<T> {
     prev_page: number | null;
   };
 }
+
+export interface IButtonToggleOption<T> {
+  label: string;
+  value: T;
+}

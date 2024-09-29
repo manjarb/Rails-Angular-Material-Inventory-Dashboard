@@ -19,6 +19,7 @@ export interface IInventoryItem {
   quantity: number; // Assuming it's always a number
   weight: number; // Weight as a number
   location: string;
+  material: string;
 }
 
 export interface IInventoryItemResponse {
@@ -40,6 +41,7 @@ export interface IInventoryItemResponse {
   quantity: number;
   weight: number;
   location: string;
+  material: string;
 }
 
 export interface IInventorySummaryResponse {

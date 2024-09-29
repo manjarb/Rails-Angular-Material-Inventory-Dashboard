@@ -1,9 +1,9 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { map, Observable } from 'rxjs';
 
 import { environment } from '../../../environments/environment';
-import { IInventoryItem, IInventoryItemPaginationData, IInventoryItemPaginationResponse, IInventorySummary, IInventorySummaryResponse, InventorySortBy } from '../../../interfaces/inventory.interface';
+import { IInventoryItem, IInventoryItemPaginationData, IInventoryItemPaginationResponse, IInventoryItemResponse, IInventorySummary, IInventorySummaryResponse, InventorySortBy } from '../../../interfaces/inventory.interface';
 import { IResponse } from '../../../interfaces/general.interface';
 
 @Injectable({
@@ -12,7 +12,7 @@ import { IResponse } from '../../../interfaces/general.interface';
 export class InventoryService {
   private apiUrl = `${environment.apiUrl}/api/v1/inventories`;
 
-  constructor(private http: HttpClient) {}
+  private http = inject(HttpClient);
 
   getSummary(): Observable<IInventorySummary> {
     return this.http
@@ -20,12 +20,16 @@ export class InventoryService {
       .pipe(
         map((response) => ({
           totalItems: response.data.total_line_items,
-          totalVolume: response.data.total_volume_tons
+          totalVolume: response.data.total_volume_tons,
         }))
       );
   }
 
-  getInventories(page = 1, limit = 20, sortBy = InventorySortBy.Weight): Observable<IInventoryItemPaginationData> {
+  getInventories(
+    page = 1,
+    limit = 20,
+    sortBy = InventorySortBy.Weight
+  ): Observable<IInventoryItemPaginationData> {
     let fullUrl = `${this.apiUrl}?page=${page}&limit=${limit}&sort_column=${sortBy}`;
 
     if (sortBy === InventorySortBy.FormChoice) {
@@ -44,7 +48,7 @@ export class InventoryService {
       );
   }
 
-  private mapToInventoryItem(item: any): IInventoryItem {
+  mapToInventoryItem(item: IInventoryItemResponse): IInventoryItem {
     return {
       productNumber: item.product_number,
       form: item.form || '',
@@ -64,6 +68,7 @@ export class InventoryService {
       quantity: Number(item.quantity) || 0, // Assuming quantity should be a number
       weight: Number(item.weight) || 0, // Weight as a number
       location: item.location || '',
+      material: item.material
     };
   }
 

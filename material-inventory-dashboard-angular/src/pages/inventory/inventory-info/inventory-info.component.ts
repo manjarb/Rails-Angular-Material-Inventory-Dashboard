@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { InventoryTableComponent } from '../components/inventory-table/inventory-table.component';
 import {
   IInventoryItem,
   IInventorySummary,
@@ -7,6 +6,7 @@ import {
 } from '../../../interfaces/inventory.interface';
 import { InventoryService } from '../services/inventory.service';
 import { CommonModule } from '@angular/common';
+import { InventoryTableComponent } from '../../../components/inventory-table/inventory-table.component';
 
 @Component({
   selector: 'app-inventory-info',

@@ -12,5 +12,19 @@ body {
   border-radius: 12px; // Rounded corners as per M3 guidelines
 }
 
-html, body { height: 100%; }
-body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+html,
+body {
+  height: 100%;
+}
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.flex {
+  display: flex;
+}
+
+.flex-y-center {
+  align-items: center;
+}

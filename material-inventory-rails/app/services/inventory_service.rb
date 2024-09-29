@@ -51,7 +51,8 @@ class InventoryService
       flange_thickness: item.flange_thickness,
       quantity: item.quantity,
       weight: item.weight.to_f,
-      location: item.location
+      location: item.location,
+      material: item.material
     }
   end
 end

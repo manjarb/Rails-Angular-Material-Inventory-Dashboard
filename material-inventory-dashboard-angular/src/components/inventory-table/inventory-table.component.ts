@@ -1,25 +1,17 @@
 import {
   Component,
-  computed,
   effect,
   input,
-  Input,
-  OnInit,
   output,
-  Signal,
 } from '@angular/core';
 import { MatTableDataSource, MatTableModule } from '@angular/material/table';
-import {
-  IInventoryItem,
-  IInventorySummary,
-  InventorySortBy,
-} from '../../../../interfaces/inventory.interface';
 import { CommonModule } from '@angular/common';
 import { MatPaginatorModule, PageEvent } from '@angular/material/paginator';
 import {
   MatButtonToggleChange,
   MatButtonToggleModule,
 } from '@angular/material/button-toggle';
+import { IInventoryItem, IInventorySummary, InventorySortBy } from '../../interfaces/inventory.interface';
 
 @Component({
   selector: 'app-inventory-table',

@@ -27,7 +27,7 @@ class PreferenceService
     new_preferences
   end
 
-  def self.find_matches(preferences, page: 1, per_page: 20)
+  def self.find_matches(preferences, page: 1, per_page: 20, weight: 10)
     matches = []
 
     preferences.each do |preference|
@@ -61,6 +61,10 @@ class PreferenceService
 
       # Combine the exact match conditions and the range conditions
       inventory_query = InventoryItem.where(query_conditions)
+
+      # Combine the range conditions and weight filter
+      range_conditions << 'weight > ?'
+      range_values << weight
 
       # Only apply range conditions if there are any
       if range_conditions.any?

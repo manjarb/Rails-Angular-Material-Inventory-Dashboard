@@ -1,0 +1,11 @@
+<form (ngSubmit)="onSubmit()" [formGroup]="uploadForm">
+  <p>Upload Preference CSV</p>
+  <div class="flex flex-y-center">
+    <button mat-flat-button type="submit" [disabled]="!uploadForm.valid">
+      Upload
+    </button>
+    <input type="file" (change)="onFileChange($event)" />
+  </div>
+</form>
+
+<div *ngIf="inventories.length"></div>
