@@ -1,7 +1,8 @@
 require 'csv'
 
 class Api::V1::PreferencesController < ApplicationController
-  BATCH_SIZE = 100
+  DEFAULT_PAGE = 1
+  DEFAULT_LIMIT = 20
 
   # POST /api/v1/preferences/upload
   def upload
@@ -9,29 +10,25 @@ class Api::V1::PreferencesController < ApplicationController
 
     if file && file.content_type == 'text/csv'
       begin
-        preference_items = []
+        # Use service to handle file processing and insertion
+        new_preferences = PreferenceService.upload_preferences(file)
 
-        Preference.transaction do
-          CSV.foreach(file.path, headers: true) do |row|
-            # Normalize headers using the utility
-            normalized_row = CsvUtils.normalize_preference_headers(row)
-
-            preference_items << normalized_row
-
-            if preference_items.size >= BATCH_SIZE
-              Preference.insert_all(preference_items)
-              preference_items.clear  # Clear the array for the next batch
-            end
-          end
-
-          # Insert remaining records if any are left after the loop
-          Preference.insert_all(preference_items) if preference_items.any?
-        end
+        # Fetch pagination parameters from query params or use defaults
+        pagination = PaginationUtils.extract_pagination_params(params, DEFAULT_PAGE, DEFAULT_LIMIT)
+        page = pagination[:page]
+        limit = pagination[:limit]
 
         # Use the service to find exact matches
-        matches = PreferenceService.find_matches
+        matches = PreferenceService.find_matches(new_preferences, page: page, per_page: limit)
 
-        json_response(matches)
+        response = {
+          items: matches.items.map(&:attributes),
+          meta: PaginationUtils.pagination_meta(matches, limit)
+        }
+
+        json_response(response)
+      rescue CSV::MalformedCSVError => e
+        json_response({ message: ResponseMessages::CSV_PARSE_ERROR.call(e.message) }, :unprocessable_entity)
       rescue StandardError => e
         json_response({ message: ResponseMessages::PROCESSING_ERROR.call(e.message) }, :unprocessable_entity)
       end
@@ -42,7 +39,15 @@ class Api::V1::PreferencesController < ApplicationController
 
   # GET /api/v1/preferences
   def index
-    preferences = Preference.all
-    json_response(preferences)
+    pagination = PaginationUtils.extract_pagination_params(params, DEFAULT_PAGE, DEFAULT_LIMIT)
+    page = pagination[:page]
+    limit = pagination[:limit]
+
+    preferences = Preference.page(page).per(limit)
+    response = {
+      items: preferences.map(&:attributes),
+      meta: PaginationUtils.pagination_meta(preferences, limit)
+    }
+    json_response(response)
   end
 end
