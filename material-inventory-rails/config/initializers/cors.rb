@@ -7,7 +7,13 @@
 
 Rails.application.config.middleware.insert_before 0, Rack::Cors do
   allow do
-    origins "http://localhost:4200"
+    origins(
+      if Rails.env.production?
+        'https://material-inventory-dashboard-angular.fly.dev'
+      else
+        'http://localhost:4200' # Or any other origin for development/test
+      end
+    )
 
     resource "*",
       headers: :any,
