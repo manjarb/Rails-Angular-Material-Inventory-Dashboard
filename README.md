@@ -4,7 +4,7 @@ This project consists of a Rails API and an Angular front-end application to man
 
 # Project Overview
 
-The **Material Inventory Dashboard** is designed to handle inventory items for Vanilla Steel, allowing users to upload and search inventory data. The **Preference Matching Function** enables users to upload preferences and find matches from the inventory based on certain criteria.
+The **Material Inventory Dashboard** is designed to handle inventory items, allowing users to upload and search inventory data. The **Preference Matching Function** enables users to upload preferences and find matches from the inventory based on certain criteria.
 
 The backend API is built using Ruby on Rails, while the frontend is built with Angular and styled using Google Material 3 design components.
 
