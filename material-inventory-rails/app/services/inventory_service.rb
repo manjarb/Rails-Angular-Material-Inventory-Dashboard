@@ -1,3 +1,5 @@
+require 'csv'
+
 class InventoryService
   BATCH_SIZE = 100
 
