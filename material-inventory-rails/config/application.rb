@@ -7,7 +7,7 @@ require "rails/all"
 Bundler.require(*Rails.groups)
 
 # Load dotenv
-Dotenv::Railtie.load
+Dotenv::Rails.load
 
 module MaterialInventoryRails
   class Application < Rails::Application

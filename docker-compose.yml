@@ -1,0 +1,25 @@
+version: '3.8'
+
+services:
+  rails-api:
+    build:
+      context: ./material-inventory-rails
+      dockerfile: Dockerfile
+    env_file:
+      - ./material-inventory-rails/.env
+    ports:
+      - '4000:4000'
+    volumes:
+      - ./material-inventory-rails:/rails
+    environment:
+      - PORT=4000
+    command: bash -c "bin/rails db:migrate && bin/rails server -b 0.0.0.0 -p 4000"
+
+  angular-app:
+    build:
+      context: ./material-inventory-dashboard-angular
+      dockerfile: Dockerfile
+    ports:
+      - '4200:80' # Maps port 80 of the container to port 4200 of the host
+    environment:
+      - NODE_ENV=production
